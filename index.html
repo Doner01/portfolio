@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulug'bekov Shohjahon | C++ & 3D Blender Portfolio (AKHU)</title>
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js (3D Engine) & Lucide Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-[#090d16] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#090d16]/85 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-orange-500 flex items-center justify-center font-mono font-bold text-slate-950 shadow">
+          US
+        </div>
+        <div>
+          <span class="font-bold tracking-tight block leading-none">Ulug'bekov Shohjahon</span>
+          <span class="text-[11px] font-mono text-cyan-400">AKHU • Software Engineering</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+        <a href="#terminal" class="hover:text-cyan-400 transition">C++ Console</a>
+        <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+        <a href="#guide" class="hover:text-orange-400 transition">How to Edit</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold transition">Contact Me</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION + INTERACTIVE 3D BLENDER VIEWPORT -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-20 grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-6 space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-xs font-mono text-cyan-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Al-Khwarizmi University (AKHU) • Software Engineer
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-orange-400">Ulug'bekov Shohjahon</span>
+      </h1>
+
+      <p class="text-slate-300 text-lg leading-relaxed">
+        Software Engineering student at <strong class="text-white">AKHU</strong> building high-performance applications in <strong class="text-cyan-400 font-mono">C++</strong> and crafting detailed 3D assets, hard-surface models, and renders in <strong class="text-orange-400 font-mono">Blender 3D</strong>.
+      </p>
+
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a href="#projects" class="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition flex items-center gap-2">
+          View My Projects
+        </a>
+        <a href="#terminal" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition font-mono">
+          > Run C++ Terminal
+        </a>
+      </div>
+    </div>
+
+    <!-- Interactive 3D Viewport -->
+    <div class="lg:col-span-6">
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1322] overflow-hidden shadow-2xl">
+        <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="text-orange-400 font-semibold">Blender_Viewport_3D</span>
+            <select onchange="setMeshType(this.value)" class="bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-700">
+              <option value="torus">TorusKnot Mesh</option>
+              <option value="crystal">Low-Poly Crystal</option>
+              <option value="sphere">Geodesic Sphere</option>
+            </select>
+          </div>
+          <div class="flex gap-1.5">
+            <button onclick="setMeshMode('solid', this)" class="mode-btn active-mode px-2.5 py-1 rounded bg-slate-800 text-slate-200">Solid</button>
+            <button onclick="setMeshMode('wireframe', this)" class="mode-btn px-2.5 py-1 rounded bg-slate-800 text-slate-200">Wireframe</button>
+          </div>
+        </div>
+
+        <div id="viewport-3d" class="w-full h-[360px] cursor-grab active:cursor-grabbing relative"></div>
+
+        <div class="px-4 py-2 bg-slate-950/80 border-t border-slate-800/80 flex justify-between items-center text-[11px] font-mono text-slate-400">
+          <span>Drag with mouse to rotate 3D mesh</span>
+          <span id="viewport-stats" class="text-cyan-400">Verts: 0 | Tris: 0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 border-t border-slate-800/80">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">Portfolio Showcase</span>
+        <h2 class="text-3xl font-extrabold mt-1">My C++ & 3D Blender Projects</h2>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex gap-2 font-mono text-xs">
+        <button onclick="filterProjects('all', this)" class="filter-btn active-filter px-3.5 py-2 rounded-lg border border-slate-700 bg-slate-900">All Projects</button>
+        <button onclick="filterProjects('cpp', this)" class="filter-btn px-3.5 py-2 rounded-lg border border-slate-800 bg-slate-900">C++ Code</button>
+        <button onclick="filterProjects('blender', this)" class="filter-btn px-3.5 py-2 rounded-lg border border-slate-800 bg-slate-900">3D Blender</button>
+      </div>
+    </div>
+
+    <!-- Dynamic Grid populated from js/projects-data.js -->
+    <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- INTERACTIVE C++ TERMINAL -->
+  <section id="terminal" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 border-t border-slate-800/80">
+    <h2 class="text-2xl font-bold mb-4 font-mono text-cyan-400">> Interactive_CPP_Console</h2>
+    <div class="rounded-2xl border border-slate-800 bg-[#070a10] p-5 font-mono text-sm shadow-xl">
+      <div class="flex flex-wrap gap-2 mb-3 pb-3 border-b border-slate-800 text-xs">
+        <span class="text-slate-400 self-center mr-2">Click to run:</span>
+        <button onclick="runCommand('whoami')" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300">whoami</button>
+        <button onclick="runCommand('akhu')" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300">akhu</button>
+        <button onclick="runCommand('skills')" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300">skills</button>
+        <button onclick="runCommand('projects')" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300">projects</button>
+        <button onclick="runCommand('clear')" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-rose-400 text-rose-300">clear</button>
+      </div>
+
+      <div id="terminal-output" class="h-52 overflow-y-auto space-y-2 text-slate-300 mb-3 pr-2">
+        <div class="text-emerald-400">g++ -std=c++17 shohjahon_portfolio.cpp -o portfolio && ./portfolio</div>
+        <div>Welcome to Ulug'bekov Shohjahon's terminal! Type <span class="text-cyan-400">'help'</span> or click a command above.</div>
+      </div>
+
+      <div class="flex items-center gap-2 border-t border-slate-800 pt-3">
+        <span class="text-cyan-400">shohjahon@akhu:~$</span>
+        <input id="terminal-input" type="text" placeholder="Type command (whoami, akhu, skills, projects, clear) and press Enter..." class="bg-transparent w-full focus:outline-none text-slate-100" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 border-t border-slate-800/80 grid md:grid-cols-2 gap-8">
+    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+      <h3 class="text-xl font-bold text-cyan-400 font-mono mb-4">// C++ & Software Engineering</h3>
+      <ul class="space-y-2.5 text-slate-300 text-sm font-mono">
+        <li>• C++17 / Object-Oriented Programming (OOP)</li>
+        <li>• Data Structures & Algorithms (AKHU Curriculum)</li>
+        <li>• Standard Template Library (STL Vectors, Maps, Sets)</li>
+        <li>• Memory Management, Pointers & File Streams</li>
+      </ul>
+    </div>
+
+    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+      <h3 class="text-xl font-bold text-orange-400 font-mono mb-4">// 3D Blender & Computer Graphics</h3>
+      <ul class="space-y-2.5 text-slate-300 text-sm font-mono">
+        <li>• Hard-Surface & Low-Poly 3D Modeling</li>
+        <li>• UV Unwrapping, PBR Texturing & Shader Nodes</li>
+        <li>• Cycles & Eevee Lighting / Rendering</li>
+        <li>• Exporting .OBJ / .FBX / .GLB for Game Engines</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- QUICK GUIDE SECTION ON PAGE -->
+  <section id="guide" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 border-t border-slate-800/80">
+    <div class="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/30">
+      <h3 class="text-lg font-bold text-white font-mono mb-2">📌 Quick Reminder: How to Add Your Own Projects & Files</h3>
+      <p class="text-sm text-slate-300 mb-3">
+        Open <code class="text-cyan-400 bg-slate-950 px-2 py-0.5 rounded">js/projects-data.js</code> in VS Code or Notepad:
+      </p>
+      <ol class="list-decimal list-inside text-sm text-slate-300 space-y-1 font-mono">
+        <li>Put your project screenshots/renders in <code class="text-orange-400">assets/images/</code></li>
+        <li>Put your downloadable <code class="text-cyan-400">.cpp</code>, <code class="text-orange-400">.blend</code>, or <code class="text-cyan-400">.zip</code> files in <code class="text-orange-400">assets/files/</code></li>
+        <li>Update <code class="text-cyan-400">githubLink</code> and <code class="text-orange-400">downloadFile</code> inside <code class="text-cyan-400">js/projects-data.js</code> and save!</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact" class="border-t border-slate-800 bg-[#060911] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="font-bold text-lg">Ulug'bekov Shohjahon</h3>
+        <p class="text-sm text-slate-400">Software Engineering Student • Al-Khwarizmi University (AKHU)</p>
+      </div>
+      <div class="flex flex-wrap gap-3 text-sm font-mono">
+        <a href="https://github.com/" target="_blank" class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 transition">GitHub</a>
+        <a href="https://t.me/" target="_blank" class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 transition">Telegram</a>
+        <a href="mailto:shohjahon@example.com" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition">Email Me</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CODE PREVIEW MODAL -->
+  <div id="code-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#0d1322] border border-slate-700 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl">
+      <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex justify-between items-center">
+        <span id="modal-title" class="font-mono text-sm text-cyan-400 font-bold">source.cpp</span>
+        <button onclick="closeModal()" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white text-xs font-mono">✕ Close</button>
+      </div>
+      <pre id="modal-code" class="p-5 text-xs font-mono text-emerald-300 overflow-x-auto max-h-[420px]"></pre>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/projects-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

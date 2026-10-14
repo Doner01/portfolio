@@ -1,0 +1,38 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #090d16;
+  color: #f1f5f9;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.active-filter {
+  background-color: #06b6d4 !important;
+  color: #090d16 !important;
+  border-color: #06b6d4 !important;
+  font-weight: 700;
+}
+
+.active-mode {
+  background-color: #06b6d4 !important;
+  color: #090d16 !important;
+  font-weight: 700;
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
